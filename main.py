@@ -101,9 +101,8 @@ if user_input:
 
 # Function to simulate streaming text output
 def stream_assistant_response(text):
-    for word in text.split():
-        yield word + " "
-        time.sleep(0.05)  # Simulate delay
+    time.sleep(0.05)  # Simulate delay
+    yield text
 
 # Display chat history with streaming for the latest assistant response
 for message in st.session_state['messages']:
