@@ -23,7 +23,7 @@ if 'document_text' not in st.session_state:
 st.sidebar.title("Settings")
 
 # Model selection
-model_options = ['gpt-3.5-turbo', 'gpt-4']
+model_options = ['gpt-4o', 'gpt-4', 'gpt-4o-mini', 'o1-preview', 'o1-mini', 'gpt-3.5-turbo']
 selected_model = st.sidebar.selectbox("Select OpenAI Model", model_options)
 
 # File uploader
