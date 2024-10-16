@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 
 # Initialize OpenAI client
 client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
+st.set_page_config(layout="wide")
 
 # Initialize session state for chat history
 if 'messages' not in st.session_state:
