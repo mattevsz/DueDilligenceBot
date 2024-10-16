@@ -2,8 +2,6 @@ import streamlit as st
 import os
 import time
 from openai import OpenAI
-import io
-
 from PyPDF2 import PdfReader
 from docx import Document
 from bs4 import BeautifulSoup
@@ -67,7 +65,13 @@ custom_prompt = (
 )
 
 # Main chat interface
-st.title("Due Dilligence Bot 🤖")
+st.title("Due Diligence Bot 🤖")
+
+# Clear chat history
+if st.sidebar.button("Clear Chat", key='clear'):
+    st.session_state['messages'] = []
+    st.session_state['document_text'] = ''  # Optionally clear document text
+    st.rerun()  # Immediately rerun the script
 
 # User input using st.chat_input
 user_input = st.chat_input("Your message")
@@ -101,8 +105,9 @@ if user_input:
 
 # Function to simulate streaming text output
 def stream_assistant_response(text):
-    time.sleep(0.05)  # Simulate delay
-    yield text
+    for word in text.split(" "):
+        yield word + " "
+        time.sleep(0.01)  # Simulate delay
 
 # Display chat history with streaming for the latest assistant response
 for message in st.session_state['messages']:
@@ -115,8 +120,3 @@ for message in st.session_state['messages']:
                 st.write_stream(stream_assistant_response(message['content']))
             else:
                 st.write(message['content'])
-
-# Clear chat history
-if st.sidebar.button("Clear Chat", key='clear'):
-    st.session_state['messages'] = []
-    st.rerun()
